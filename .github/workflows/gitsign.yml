@@ -12,7 +12,8 @@ jobs:
 
      - name: Install gitsign
        run: |
-         curl -sSL https://raw.githubusercontent.com/sigstore/gitsign/main/install.sh | sh
+         wget https://github.com/sigstore/gitsign/releases/download/v0.7.1/gitsign_0.7.1_linux_amd64.deb
+         sudo dpkg -i gitsign_0.7.1_linux_amd64.deb
 
      - name: Verify Commit Signature
        run: |

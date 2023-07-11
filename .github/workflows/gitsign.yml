@@ -1,0 +1,28 @@
+name: Commit Verification
+
+on: [push]
+
+jobs:
+ commit-verification:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: Checkout Repository
+       uses: actions/checkout@v2
+
+     - name: Install gitsign
+       run: |
+         curl -sSL https://raw.githubusercontent.com/sigstore/gitsign/main/install.sh | sh
+
+     - name: Verify Commit Signature
+       run: |
+         # Fetch all commits in the current push
+         git rev-list HEAD > commits.txt
+
+         # Iterate over each commit and verify the signature
+         while read -r commit; do
+           gitsign verify-commit "$commit" || {
+             echo "Commit $commit is not signed. Please sign all commits before pushing."
+             exit 1
+           }
+         done < commits.txt

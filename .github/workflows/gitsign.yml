@@ -22,7 +22,7 @@ jobs:
 
          # Iterate over each commit and verify the signature
          while read -r commit; do
-           gitsign verify-commit "$commit" || {
+           gitsign verify "$commit" || {
              echo "Commit $commit is not signed. Please sign all commits before pushing."
              exit 1
            }

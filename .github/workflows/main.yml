@@ -19,3 +19,4 @@ jobs:
             echo "Pull requests to the main branch should come from the dev branch."
             exit 1
           fi
+          echo "${{ github }} --> ${{ github.head_ref }} = ${{ github.ref_name }}"

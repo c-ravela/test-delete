@@ -1,0 +1,21 @@
+name: Main Branch Pull Request Verification
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Verify Source Branch
+        run: |
+          if [[ "${{ github.head_ref }}" != "pre-main" ]]; then
+            echo "Pull requests to the main branch should come from the dev branch."
+            exit 1
+          fi

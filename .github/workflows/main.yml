@@ -1,0 +1,18 @@
+name: Main Branch Pull Request Verification
+
+on: 
+  pull_request:
+    branches:
+      -main
+  
+jobs:
+  verify-pull-request:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    
+    - name: Echo Github Context
+      run: |
+        echo "${{github}} --> ${{github.head_ref}}"
